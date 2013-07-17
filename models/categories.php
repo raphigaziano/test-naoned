@@ -63,6 +63,5 @@ echo "intanciate from static</br>";
 var_dump(Categorie::getById(1));
 echo '</br></br>';
 var_dump(Categorie::getById(2));
-echo 'done';
 echo '</pre>';
 ?>
