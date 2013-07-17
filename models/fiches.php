@@ -1,5 +1,5 @@
 <?php
-include('basemodel.php');
+include_once('basemodel.php');
 
 /**
  * Model class for Fiche objects
