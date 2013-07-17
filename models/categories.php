@@ -7,6 +7,33 @@ include('basemodel.php');
 Class Categorie extends Model {
 
     private $id, $label, $parent;
+    
+    /* Accessors 
+     * *********
+     */
+
+    public function getId() {
+        return $this->id;
+    }
+    public function setId($val) {
+        $this->id = (int)$val;
+    }
+
+    public function getLabel() {
+        return $this->label;
+    }
+    public function setLabel($val) {
+        $this->label = $val;
+    }
+
+    public function getParent() {
+        return $this->parent;
+    }
+    public function setParent($val) {
+        if (get_class($val) === 'Categorie') {
+            $this->label = $val;
+        }
+    }
 
     /**
      * Object's hydratation from from a DB row.
@@ -41,8 +68,8 @@ Class Categorie extends Model {
         $obj = new Categorie();
         $request = $obj->queries['getById'];
         $request->execute(array(':id' => $id));        
-	$db_fields = $request->fetch();	
-	if ($db_fields) {
+	    $db_fields = $request->fetch();	
+	    if ($db_fields) {
             $obj->_initFromDb($db_fields);
             return $obj;
         } else {
