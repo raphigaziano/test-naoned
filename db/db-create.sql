@@ -26,6 +26,7 @@ CREATE TABLE categorie (
     FOREIGN KEY (cat_parent) REFERENCES categorie(cat_id)
         ON DELETE CASCADE ON UPDATE CASCADE
 );
+ALTER TABLE categorie AUTO_INCREMENT = 1;
 
 DROP TABLE IF EXISTS fiche;
 CREATE TABLE fiche (
@@ -33,6 +34,7 @@ CREATE TABLE fiche (
     fi_label   varchar(255)    NOT NULL,
     fi_description  TEXT
 );
+ALTER TABLE fiche AUTO_INCREMENT = 1;
 
 DROP TABLE IF EXISTS categorie_fiche;
 CREATE TABLE categorie_fiche (
