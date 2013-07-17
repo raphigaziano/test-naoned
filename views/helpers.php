@@ -45,6 +45,7 @@ function categories_menu($linksUrl) {
     ?>
     <div class="span2">
       <div class="well sidebar-nav">
+        <a href="/">Toutes les fiches</a>
         <ul class="nav nav-list">
         <?php foreach(Categorie::getAllTopLevel() as $cat) {
             print_category($cat, $linksUrl);
