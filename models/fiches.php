@@ -77,17 +77,5 @@ Class Fiche extends Model {
     }
 }
 
-// TESTING
-//$c = Categorie::getById('1');
-echo '<pre>';
-echo "simple instanciation</br>";
-$c = new Fiche();
-var_dump($c);
-echo '</br></br>';
-echo "intanciate from static</br>";
-var_dump(Fiche::getById(1));
-echo '</br></br>';
-var_dump(Fiche::getById(2));
-echo '</pre>';
 ?>
 

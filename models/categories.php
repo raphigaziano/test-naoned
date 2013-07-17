@@ -79,16 +79,4 @@ Class Categorie extends Model {
     }
 }
 
-// TESTING
-//$c = Categorie::getById('1');
-echo '<pre>';
-echo "simple instanciation</br>";
-$c = new Categorie();
-var_dump($c);
-echo '</br></br>';
-echo "intanciate from static</br>";
-var_dump(Categorie::getById(1));
-echo '</br></br>';
-var_dump(Categorie::getById(2));
-echo '</pre>';
 ?>
