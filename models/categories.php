@@ -1,5 +1,5 @@
 <?php
-include('basemodel.php');
+include_once('basemodel.php');
 
 /**
  * Model class for Category objects
@@ -35,6 +35,17 @@ Class Categorie extends Model {
         }
     }
 
+    public function getChildren() {
+        $query = $this->queries['getChildrenIds'];
+        $query->execute(array(':id' => $this->id));
+        $ids = $query->fetchAll();
+        $res = array();
+        foreach ($ids as $id) {
+            $res[] = Categorie::getById($id['cat_id']);
+        }
+        return $res;
+    }
+
     /**
      * Object's hydratation from from a DB row.
      *
@@ -53,8 +64,17 @@ Class Categorie extends Model {
      * @return void
      **/
     protected function _initQueries() {
+        $this->queries['getAll'] = $this->_prepareRequest(
+            "SELECT * FROM categorie"
+        );
+        $this->queries['getAllTopLevel'] = $this->_prepareRequest(
+            "SELECT * FROM categorie WHERE cat_parent IS NULL;"
+        );
         $this->queries['getById'] = $this->_prepareRequest(
             "SELECT * FROM categorie WHERE cat_id = :id;"
+        );
+        $this->queries['getChildrenIds'] = $this->_prepareRequest(
+            "SELECT cat_id FROM categorie WHERE cat_parent = :id;"
         );
     }
 
@@ -66,9 +86,9 @@ Class Categorie extends Model {
      **/
     public static function getById($id) {
         $obj = new Categorie();
-        $request = $obj->queries['getById'];
-        $request->execute(array(':id' => $id));        
-	    $db_fields = $request->fetch();	
+        $query = $obj->queries['getById'];
+        $query->execute(array(':id' => $id));        
+	    $db_fields = $query->fetch();	
 	    if ($db_fields) {
             $obj->_initFromDb($db_fields);
             return $obj;
@@ -76,6 +96,45 @@ Class Categorie extends Model {
             // TODO: Better Error Handling
 	       return NULL;
         }
+    }
+
+    /**
+     * Return all categories
+     *
+     * @return array of all categories
+     **/
+    public static function getAll() {
+        $obj = new Categorie(); // Need to intanciate a dummy obj to
+                                // access stored queries...
+        $query = $obj->queries['getAll'];
+        $query->execute();
+        $res = array();
+        foreach ($query->fetchAll() as $c) {              
+            $cat = new Categorie();
+            $cat->_initFromDb($c);
+            $res[] = $cat;
+        }
+        return $res;
+    }
+
+    /**
+     * Return all top level categories (ie, the ones 
+     * without any children)
+     *
+     * @return array of categories
+     **/
+    public static function getAllTopLevel() {
+        $obj = new Categorie(); // Need to intanciate a dummy obj to
+                                // access stored queries...
+        $query = $obj->queries['getAllTopLevel'];
+        $query->execute();
+        $res = array();
+        foreach ($query->fetchAll() as $c) {              
+            $cat = new Categorie();
+            $cat->_initFromDb($c);
+            $res[] = $cat;
+        }
+        return $res;
     }
 }
 
