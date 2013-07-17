@@ -53,9 +53,10 @@ Class Categorie extends Model {
      * @return void
      **/
     protected function _initFromDb($args) {
-        $this->id     = $args['cat_id'];
-        $this->label  = $args['cat_label'];
-        $this->parent = $args['cat_parent'];
+        extract($args);
+        $this->id     = $cat_id;
+        $this->label  = $cat_label;
+        $this->parent = $cat_parent;
     }
 
     /**
