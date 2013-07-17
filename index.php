@@ -8,36 +8,26 @@ include('views/header.php');
 include('models/categories.php');
 include('models/fiches.php');
 
-$f = Fiche::getById(1);
 ?>
 <div class="container-fluid">
   <div class="row-fluid">
-    <?php categories_menu('cat='); ?>
-    <div class="span8 offset1">
     <!-- TESTING -->
-    <table class="table">        
-	<tr>
-            <th>FIELD</th>
-            <th>VALUE</th>
-        </tr>
-        <tr>
-            <td>ID</td>
-            <td><?php echo $f->getId(); ?></td>
-        </tr>
-        <tr>
-            <td>LABEL</td>
-            <td><?php echo $f->getLabel(); ?></td>
-        </tr>
-        <tr>
-            <td>Category</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Descr</td>
-            <td><?php echo $f->getDescription(); ?></td>
-        </tr>
-    </table>
-    </div> <!--/.span9 --> 
+        <?php
+        if (isset($_GET['action'])) {
+            $action = $_GET['action'];
+        } else {
+            $action = 'view';
+        }
+        switch($action) {
+            case 'view':
+                include('controllers/view.php');
+                break;
+            default:
+                echo 'onoes';
+                die();
+        }
+        ?>
+    </div> <!--/.span8 --> 
   </div> <!--/.fluid-row --> 
  <!--MOVE TO FOOTER, before global js and /body-->
 </div> <!--/.fluid-container--> 
