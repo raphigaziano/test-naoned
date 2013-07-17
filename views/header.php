@@ -20,19 +20,19 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="brand" href="#">Project name</a>
+            <a class="brand" href="#">Annuaire Musées</a>
             <div class="nav-collapse collapse">
-              <p class="navbar-text pull-right">
-                Logged in as <a href="#" class="navbar-link">Username</a>
-              </p>
-              <ul class="nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-              </ul>
+	      <!-- Menu -->
+	      <nav>
+                <ul class="nav">
+                  <li class="active"><a href="/">Acceuil</a></li>
+                  <li><a href="models/categories.php">Catégories</a></li>
+                </ul>
+              </nav>
+	      <!--/ Menu -->
             </div><!--/.nav-collapse -->
           </div>
         </div>
       </div>
-
     </header>
+    <!--/ header -->
