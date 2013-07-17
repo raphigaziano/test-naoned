@@ -1,6 +1,5 @@
 <?php
 
-include('../constants.php');
 
 /**
  * Base model class, handling basic db connection
