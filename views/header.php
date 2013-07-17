@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <meta content='text/html' charset='utf-8'/>
+        <meta charset='utf-8'/>
         <title>Test Naoned - Annuaire Musées</title>
         <link rel='stylesheet' type='text/css'
               href=<?php STATIC_ROOT . 'bootstrap/boostrap.min.css' ?> />
