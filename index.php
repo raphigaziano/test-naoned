@@ -1,6 +1,8 @@
 <?php 
 
 include_once('constants.php'); 
+include_once('views/helpers.php'); 
+
 include('views/header.php');
 
 include('models/categories.php');
@@ -10,21 +12,9 @@ $f = Fiche::getById(1);
 ?>
 <div class="container-fluid">
   <div class="row-fluid">
-    <div class="span2">
-      <div class="well sidebar-nav">
-        <ul class="nav nav-list">
-          <?php foreach(Categorie::getAllTopLevel() as $cat):?>
-            <li><a href=""><?php echo $cat->getLabel(); ?></a></li>
-            <?php foreach ($cat->getChildren() as $child):?>
-              <ul class="nav nav-list">
-                <li><a href=""><?php echo $child->getLabel(); ?></a></li>
-              </ul>
-            <?php endforeach; ?>
-          <?php endforeach; ?>
-        </ul>
-      </div>
-    </div>
+    <?php categories_menu('cat='); ?>
     <div class="span8 offset1">
+    <!-- TESTING -->
     <table class="table">        
 	<tr>
             <th>FIELD</th>
