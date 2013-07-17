@@ -34,4 +34,24 @@ function print_category($cat, $baseUrl) {
     <?endif;?>
 <?php }
 
+/**
+ * Display a menu listing categories.
+ *
+ * @param $linksUrl: Base url templates for displayed links.
+ *                   Each category listed will point to
+ *                   $linksUrl + category id
+ **/
+function categories_menu($linksUrl) {
+    ?>
+    <div class="span2">
+      <div class="well sidebar-nav">
+        <ul class="nav nav-list">
+        <?php foreach(Categorie::getAllTopLevel() as $cat) {
+            print_category($cat, $linksUrl);
+        }
+        ?>
+        </ul>
+      </div>
+    </div>
+<?php }
 ?>
