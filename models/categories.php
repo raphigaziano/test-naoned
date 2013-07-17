@@ -36,12 +36,33 @@ Class Categorie extends Model {
     }
 
     public function getChildren() {
-        $query = $this->queries['getChildrenIds'];
+        $query = $this->queries['getChildren'];
         $query->execute(array(':id' => $this->id));
-        $ids = $query->fetchAll();
+        $cats_db = $query->fetchAll();
         $res = array();
-        foreach ($ids as $id) {
-            $res[] = Categorie::getById($id['cat_id']);
+        foreach ($cats_db as $cat) {
+            $c = new Categorie();
+            $c->initFromDb($cat);
+            $res[] = $c;
+        }
+        return $res;
+    }
+
+    /**
+     * Return an array of fiches object contained within this
+     * category or any of its children.
+     *
+     * return array of Fiche objects
+     **/
+    public function getFiches() {
+        $query = $this->queries['getFiches'];
+        $query->execute(array(':id' => $this->id));
+        $fiches_db = $query->fetchAll();
+        $res = array();
+        foreach ($fiches_db as $fi) {
+            $f = New Fiche();
+            $f->initFromDb($fi);
+            $res[] = $f;
         }
         return $res;
     }
@@ -52,7 +73,7 @@ Class Categorie extends Model {
      * @param $args: Array of fields from the fetched row.
      * @return void
      **/
-    protected function _initFromDb($args) {
+    public function initFromDb($args) {
         extract($args);
         $this->id     = $cat_id;
         $this->label  = $cat_label;
@@ -74,8 +95,15 @@ Class Categorie extends Model {
         $this->queries['getById'] = $this->_prepareRequest(
             "SELECT * FROM categorie WHERE cat_id = :id;"
         );
-        $this->queries['getChildrenIds'] = $this->_prepareRequest(
-            "SELECT cat_id FROM categorie WHERE cat_parent = :id;"
+        $this->queries['getChildren'] = $this->_prepareRequest(
+            "SELECT * FROM categorie WHERE cat_parent = :id;"
+        );
+        $this->queries['getFiches'] = $this->_prepareRequest(
+            'SELECT fiche.* FROM fiche
+                INNER JOIN categorie_fiche ON fiche.fi_id = categorie_fiche.fi_id
+            WHERE cat_id = :id OR cat_id in (
+                SELECT cat_id FROM categorie WHERE cat_parent = :id
+            )'
         );
     }
 
@@ -91,7 +119,7 @@ Class Categorie extends Model {
         $query->execute(array(':id' => $id));        
 	    $db_fields = $query->fetch();	
 	    if ($db_fields) {
-            $obj->_initFromDb($db_fields);
+            $obj->initFromDb($db_fields);
             return $obj;
         } else {
             // TODO: Better Error Handling
@@ -112,7 +140,7 @@ Class Categorie extends Model {
         $res = array();
         foreach ($query->fetchAll() as $c) {              
             $cat = new Categorie();
-            $cat->_initFromDb($c);
+            $cat->initFromDb($c);
             $res[] = $cat;
         }
         return $res;
@@ -132,7 +160,7 @@ Class Categorie extends Model {
         $res = array();
         foreach ($query->fetchAll() as $c) {              
             $cat = new Categorie();
-            $cat->_initFromDb($c);
+            $cat->initFromDb($c);
             $res[] = $cat;
         }
         return $res;
