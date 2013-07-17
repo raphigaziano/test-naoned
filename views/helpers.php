@@ -52,6 +52,6 @@ function categories_menu($linksUrl) {
         ?>
         </ul>
       </div>
-    </div>
+    </div> <!--/span2 -->
 <?php }
 ?>
