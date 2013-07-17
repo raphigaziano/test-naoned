@@ -6,7 +6,7 @@ include_once('basemodel.php');
  **/
 Class Fiche extends Model {
 
-    private $id, $label, $descrption;
+    private $id, $label, $description;
     
     /* Accessors 
      * *********
@@ -39,10 +39,11 @@ Class Fiche extends Model {
      * @param $args: Array of fields from the fetched row.
      * @return void
      **/
-    protected function _initFromDb($args) {
-        $this->id     = $args['fi_id'];
-        $this->label  = $args['fi_label'];
-        $this->parent = $args['fi_description'];
+    public function initFromDb($args) {
+        extract($args);
+        $this->id     = $fi_id;
+        $this->label  = $fi_label;
+        $this->description = $fi_description;
     }
 
     /**
@@ -68,7 +69,7 @@ Class Fiche extends Model {
         $request->execute(array(':id' => $id));        
 	    $db_fields = $request->fetch();	
 	    if ($db_fields) {
-            $obj->_initFromDb($db_fields);
+            $obj->initFromDb($db_fields);
             return $obj;
         } else {
             // TODO: Better Error Handling
