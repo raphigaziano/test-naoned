@@ -10,20 +10,33 @@ unset($c); // Delete temporary variable to avoid it being reused further down
 switch ($_SERVER['REQUEST_METHOD']) {
     // Post request: handle the update or deletion
     case 'POST':
-        echo '<pre>';
-        var_dump($_POST);
-        echo '</pre>';
         // Form sent via the 'Sauvegarder' button
         if (isset($_POST['save'])) {
             // id == new => create
             if ($_POST['id'] === 'new') {
-                echo 'create new cat';
+                $new_cat = new Categorie();
+                $new_cat->initFromDb(array(
+                    'cat_id'     => $_POST['id'],
+                    'cat_label'  => $_POST['label'],
+                    'cat_parent' => $_POST['parent']
+                ));
+                try {
+                    $new_cat->save();
+                } catch (PDOException $e) {
+                    display_error(
+                        'Impossible d\'ajouter cette catégorie:</br>' . $e,
+                        true
+                    );
+                }
+                display_success('owi!');
             }
             // else update
             else {
+                display_success('owi!');
                 echo 'updating cat #' . $_POST['id'];
             }
         } else if (isset($_POST['delete'])) {
+            display_success('owi!');
             echo 'deleting cat #' . $_POST['id'];
         }
         break;
