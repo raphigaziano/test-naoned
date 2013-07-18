@@ -33,11 +33,9 @@ Class Fiche extends Model {
         $this->description = $val;
     }
 
-    public function getCategories() {
-        $q = $this->queries['getCategorie'];
-        $q->execute(array(':id' => $this->id));
-        $res = array();
-        foreach ($q->fetchAll() as $cat_db) {
+    public function getCategorie() {
+        foreach ($this->_getAll('getCategorie', array(':id' => $this->id))
+                 as $cat_db) {
             $cat = new Categorie();
             $cat->initFromDb($cat_db);
             $res[] = $cat;

@@ -36,13 +36,11 @@ Class Categorie extends Model {
     }
 
     public function getChildren() {
-        $query = $this->queries['getChildren'];
-        $query->execute(array(':id' => $this->id));
-        $cats_db = $query->fetchAll();
         $res = array();
-        foreach ($cats_db as $cat) {
+        foreach ($this->_getAll('getChildren', array(':id' => $this->id))
+                 as $cat_db) {
             $c = new Categorie();
-            $c->initFromDb($cat);
+            $c->initFromDb($cat_db);
             $res[] = $c;
         }
         return $res;
@@ -55,11 +53,9 @@ Class Categorie extends Model {
      * return array of Fiche objects
      **/
     public function getFiches() {
-        $query = $this->queries['getFiches'];
-        $query->execute(array(':id' => $this->id));
-        $fiches_db = $query->fetchAll();
         $res = array();
-        foreach ($fiches_db as $fi) {
+        foreach ($this->_getAll('getFiches', array(':id' => $this->id))
+                 as $fi) {
             $f = New Fiche();
             $f->initFromDb($fi);
             $res[] = $f;
@@ -133,12 +129,7 @@ Class Categorie extends Model {
      * @return array of all categories
      **/
     public static function getAll() {
-        $obj = new Categorie(); // Need to intanciate a dummy obj to
-                                // access stored queries...
-        $query = $obj->queries['getAll'];
-        $query->execute();
-        $res = array();
-        foreach ($query->fetchAll() as $c) {              
+        foreach ($this->_getAll() as $cat) {
             $cat = new Categorie();
             $cat->initFromDb($c);
             $res[] = $cat;

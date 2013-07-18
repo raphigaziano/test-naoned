@@ -41,6 +41,28 @@ abstract Class Model {
     }
 
     /**
+     * Execute a prepared query.
+     *
+     * @param $query: query name, as a string contained in the $this->queries
+     *                array.
+     * @param $args:  array of arguments passed to the query, defaulting to an 
+     *                empty array
+     * return executed query
+     **/
+    protected function _execQuery($query, $args=array()) {
+        $q = $this->queries[$query];
+        $q->execute($args);
+        return $q;
+    }
+
+    /**
+     * Helper. Excecute passed query and return all results.
+     **/
+    protected function _getAll($query='getAll', $args=array()) {
+        return $this->_execQuery($query, $args)->fetchAll();
+    }
+
+    /**
      * Initialize internal SQL queries.
      * Subclasses must override this to define their own SQL queries.
      **/

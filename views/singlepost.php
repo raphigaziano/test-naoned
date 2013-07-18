@@ -2,7 +2,7 @@
     <p><?php echo $f->getDescription(); ?></p>
     <p>
         Categories: 
-        <?php foreach ($f->getCategories() as $c): ?>
+        <?php foreach ($f->getCategorie() as $c): ?>
             <a href="?cat=<?php echo $c->getId(); ?>">
               <?php echo $c->getLabel(); ?>
             </a>
