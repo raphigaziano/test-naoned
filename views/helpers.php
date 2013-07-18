@@ -24,10 +24,12 @@ function display_success($msg) {
 }
 
 /**
- * Display an error message
+ * Display an error message.
+ * If $die === true, then abort everyting.
  **/
-function display_error($msg) {
+function display_error($msg, $die=false) {
     _alert('error', $msg);  
+    if ($die) die();
 }
 
  /* Category Sidebar Helpers
