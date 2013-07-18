@@ -7,3 +7,4 @@ foreach ($cats as $i => $c) {
     include('views/includes/forms/categorie.php');
 }
 ?>
+<script src='static/js/deletewarning.js'> </script>
