@@ -105,6 +105,7 @@ Class Fiche extends Model {
         $obj = new Fiche();
         $query = $obj->queries['getAll'];
         $query->execute();
+        $res = array();
         foreach ($query->fetchAll() as $f) {
             $fi = new Fiche();
             $fi->initFromDb($f);
