@@ -1,5 +1,35 @@
 <?php
 
+ /* Alert Helpers
+  * *************
+  */
+
+/**
+ * Internal helper.
+ * Display a bootstrap alert block of type $type,
+ * containing $msg
+ **/
+function _alert($type, $msg) {
+?>
+    <p class="alert alert-<?php echo $type; ?>">
+      <?php echo $msg; ?>
+    </p>
+<?php }
+
+/**
+ * Display a success message
+ **/
+function display_success($msg) {
+    _alert('success', $msg);  
+}
+
+/**
+ * Display an error message
+ **/
+function display_error($msg) {
+    _alert('error', $msg);  
+}
+
  /* Category Sidebar Helpers
   * ************************
   */
