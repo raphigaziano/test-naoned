@@ -55,13 +55,16 @@ Class Fiche extends Model {
         $this->queries['getById'] = $this->_prepareRequest(
             "SELECT * FROM fiche WHERE fi_id = :id;"
         );
+        $this->queries['getAll'] = $this->_prepareRequest(
+            "SELECT * FROM fiche;"
+        );
     }
 
     /**
      * Alternate, static constructor.
      *
      * @param $id: Primary key of the requested row.
-     * @return New instance of Categorie from fethed db entry
+     * @return New instance of Fiche from fethed db entry
      **/
     public static function getById($id) {
         $obj = new Fiche();
@@ -75,6 +78,18 @@ Class Fiche extends Model {
             // TODO: Better Error Handling
 	       return NULL;
         }
+    }
+
+    public static function getAll() {
+        $obj = new Fiche();
+        $query = $obj->queries['getAll'];
+        $query->execute();
+        foreach ($query->fetchAll() as $f) {
+            $fi = new Fiche();
+            $fi->initFromDb($f);
+            $res[] = $fi;
+        }
+        return $res;
     }
 }
 
