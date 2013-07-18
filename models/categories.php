@@ -16,6 +16,9 @@ Class Categorie extends Model {
         return $this->id;
     }
     public function setId($val) {
+        if ($val != 'new') {
+            $val = (int)$val;
+        }
         $this->id = $val;
     }
 
@@ -109,6 +112,14 @@ Class Categorie extends Model {
             "INSERT INTO categorie (cat_label, cat_parent)
                 VALUES (:label, :parent);"
         );
+        $this->queries['delete'] = $this->_prepareRequest(
+            "DELETE FROM categorie WHERE cat_id = :id;"
+        );
+        $this->queries['update'] = $this->_prepareRequest(
+            "UPDATE categorie 
+             SET cat_label=:label, cat_parent=:parent
+             WHERE cat_id = :id;"
+        );
     }
 
     /**
@@ -126,8 +137,16 @@ Class Categorie extends Model {
         if ($this->id === 'new') {
             $this->_execQuery('insert', $args);
         } else {
-
+            $args[':id'] = $this->id;
+            $this->_execQuery('update', $args);
         }
+    }
+
+    /**
+     * Delete the categorie from the database.
+     **/
+    public function delete() {
+        $this->_execQuery('delete', array(':id' => $this->id));
     }
 
     /**
