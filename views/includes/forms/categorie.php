@@ -1,5 +1,6 @@
 <p>
   <form class='form-inline', action='', method='post'>
+  <fieldset>
     <input type='hidden' name='id' 
            value='<?php echo isset($c) ? $c->getId() : 'new' ?>' />
     <label>Libellé: </label>
@@ -15,9 +16,10 @@
         </option>
       <?php endforeach;?>
     </select>
-    <button name='save'>Sauvegarder</button>
+    <button name='save' class='btn btn-primary'>Sauvegarder</button>
     <?php if (isset($c)):?>
-        <button name='delete'>Supprimer</button>
+        <button name='delete' class='btn btn-danger'>Supprimer</button>
     <?php endif; ?>
+  </fieldset>
   </form>
 </p>
