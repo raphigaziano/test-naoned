@@ -29,7 +29,7 @@ Class Fiche extends Model {
     public function getDescription() {
         return $this->description;
     }
-    public function setParent($val) {
+    public function setDescription($val) {
         $this->description = $val;
     }
 
@@ -51,9 +51,9 @@ Class Fiche extends Model {
      **/
     public function initFromDb($args) {
         extract($args);
-        $this->id     = $fi_id;
-        $this->label  = $fi_label;
-        $this->description = $fi_description;
+        $this->setId($fi_id);
+        $this->setLabel($fi_label);
+        $this->setDescription($fi_description);
     }
 
     /**
