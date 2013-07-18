@@ -28,7 +28,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
                         true
                     );
                 }
-                display_success('owi!');
+                display_success('La catégorie ' . $new_cat->getLabel() . 
+                                'a bien été ajoutée ;)');
             }
             // else update
             else {
