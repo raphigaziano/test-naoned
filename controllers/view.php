@@ -5,7 +5,7 @@
 // View single fiche
 if (isset($_GET['post'])) {
     $f = Fiche::getById($_GET['post']);
-    include('views/singlepost.php');
+    include('views/includes/singlepost.php');
 } 
 // List fiches
 else {
@@ -24,5 +24,5 @@ else {
     if (isset($c)) {
         echo 'Catégorie: ' . $c->getLabel() . '<br/>';
     }
-    include('views/fichelist.php');
+    include('views/includes/fichelist.php');
 }
