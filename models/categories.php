@@ -16,13 +16,16 @@ Class Categorie extends Model {
         return $this->id;
     }
     public function setId($val) {
-        $this->id = (int)$val;
+        $this->id = $val;
     }
 
     public function getLabel() {
         return $this->label;
     }
     public function setLabel($val) {
+        if (!$val) {
+            $val = NULL;
+        }
         $this->label = $val;
     }
 
@@ -30,9 +33,10 @@ Class Categorie extends Model {
         return $this->parent;
     }
     public function setParent($val) {
-        if (get_class($val) === 'Categorie') {
-            $this->label = $val;
+        if ($val === 'none') {
+            $val = NULL;
         }
+        $this->parent = $val;
     }
 
     public function getChildren() {
@@ -71,9 +75,9 @@ Class Categorie extends Model {
      **/
     public function initFromDb($args) {
         extract($args);
-        $this->id     = $cat_id;
-        $this->label  = $cat_label;
-        $this->parent = $cat_parent;
+        $this->setId($cat_id);
+        $this->setLabel($cat_label);
+        $this->setParent($cat_parent);
     }
 
     /**
@@ -101,6 +105,29 @@ Class Categorie extends Model {
                 SELECT cat_id FROM categorie WHERE cat_parent = :id
             )'
         );
+        $this->queries['insert'] = $this->_prepareRequest(
+            "INSERT INTO categorie (cat_label, cat_parent)
+                VALUES (:label, :parent);"
+        );
+    }
+
+    /**
+     * Save the object to the database.
+     * Will either insert a new row or update an existing one, depending on
+     * the value of $this-> id ('new' => new row)
+     *
+     * return void
+     **/
+    public function save() {
+        $args = array(
+            ':label'  => $this->label,
+            ':parent' => $this->parent
+        );
+        if ($this->id === 'new') {
+            $this->_execQuery('insert', $args);
+        } else {
+
+        }
     }
 
     /**
