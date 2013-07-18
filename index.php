@@ -3,14 +3,12 @@
 include_once('constants.php'); 
 include_once('views/helpers.php'); 
 
-include('views/header.php');
+include('views/includes/header.php');
 
 include('models/categories.php');
 include('models/fiches.php');
 
 ?>
-<div class="container-fluid">
-  <div class="row-fluid">
     <?php categories_menu(); ?>
       <div class="span8 offset1">
     <!-- TESTING -->
@@ -36,5 +34,5 @@ include('models/fiches.php');
  <!--MOVE TO FOOTER, before global js and /body-->
 </div> <!--/.fluid-container--> 
 <?php
-include('views/footer.php');
+include('views/includes/footer.php');
 ?>
