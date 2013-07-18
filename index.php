@@ -11,6 +11,8 @@ include('models/fiches.php');
 ?>
 <div class="container-fluid">
   <div class="row-fluid">
+    <?php categories_menu(); ?>
+      <div class="span8 offset1">
     <!-- TESTING -->
         <?php
         if (isset($_GET['action'])) {
@@ -22,9 +24,11 @@ include('models/fiches.php');
             case 'view':
                 include('controllers/view.php');
                 break;
+            case 'edit':
+                include('controllers/edit.php');
+                break;
             default:
-                echo 'onoes';
-                die();
+                die('l\'action demandée n\'existe pas :(');
         }
         ?>
     </div> <!--/.span8 --> 

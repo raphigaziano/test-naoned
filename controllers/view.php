@@ -1,5 +1,3 @@
-<?php categories_menu('?cat='); ?>
-  <div class="span8 offset1">
           
 <?php
 // View single fiche
