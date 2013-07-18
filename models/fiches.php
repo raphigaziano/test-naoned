@@ -33,6 +33,18 @@ Class Fiche extends Model {
         $this->description = $val;
     }
 
+    public function getCategories() {
+        $q = $this->queries['getCategorie'];
+        $q->execute(array(':id' => $this->id));
+        $res = array();
+        foreach ($q->fetchAll() as $cat_db) {
+            $cat = new Categorie();
+            $cat->initFromDb($cat_db);
+            $res[] = $cat;
+        }
+        return $res;
+    }
+
     /**
      * Object's hydratation from from a DB row.
      *
@@ -58,6 +70,12 @@ Class Fiche extends Model {
         $this->queries['getAll'] = $this->_prepareRequest(
             "SELECT * FROM fiche;"
         );
+        $this->queries['getCategorie'] = $this->_prepareRequest(
+            "SELECT categorie.* FROM categorie
+                INNER JOIN categorie_fiche ON categorie.cat_id = categorie_fiche.cat_id
+                INNER JOIN fiche ON fiche.fi_id = categorie_fiche.fi_id
+            WHERE fiche.fi_id = :id;"
+        );
     }
 
     /**
@@ -80,6 +98,11 @@ Class Fiche extends Model {
         }
     }
 
+    /**
+     * Return all categories
+     *
+     * @return array of all fiches
+     **/
     public static function getAll() {
         $obj = new Fiche();
         $query = $obj->queries['getAll'];
