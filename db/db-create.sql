@@ -28,6 +28,7 @@ CREATE TABLE categorie (
 );
 ALTER TABLE categorie AUTO_INCREMENT = 1;
 
+
 DROP TABLE IF EXISTS fiche;
 CREATE TABLE fiche (
     fi_id      INT             NOT NULL    AUTO_INCREMENT  PRIMARY KEY,
