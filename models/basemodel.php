@@ -24,7 +24,10 @@ abstract Class Model {
     public static function initDb() {
         try {
             self::$db = new PDO(DB_CONNECTION_STRING, DB_USER, DB_PSWD);
-        } catch (PDOError $e) {
+            self::$db->setAttribute(
+                PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION
+            );
+        } catch (PDOException $e) {
             die('Impossible de se connecter a la bdd: ' . $e->getMessage());
         }
     }
@@ -52,6 +55,12 @@ abstract Class Model {
     protected function _execQuery($query, $args=array()) {
         $q = $this->queries[$query];
         $q->execute($args);
+        return $q;
+    }
+
+    protected function _insertOrUpdate($query, $args=array()) {
+        $q = $this->queries[$query];
+        $q->exec($args);
         return $q;
     }
 
