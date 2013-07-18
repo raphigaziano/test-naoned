@@ -4,7 +4,7 @@
  */
 
 $('button[name=delete]').click(function(ev) {
-    var msg = "Etes vous sur de vouloir supprimer BLAAA?";
+    var msg = "Etes vous sur de vouloir supprimer cette entrée?";
     if ( $(this).parents('form').hasClass('categorie-edit') ) {
         msg += "\nSa supression entrainera celle de toutes les "
                 + "sous-catégories ou fiches associé(e)s!";
