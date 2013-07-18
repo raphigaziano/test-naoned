@@ -5,12 +5,12 @@
  **/
 Class Template {
 
-    private static dir_ = 'views/includes/';
-    private fragments = array();
+    private static $dir_ = 'views/includes/';
+    private $fragments = array();
 
-    public __construct($htmlfragments) {
+    public function __construct($htmlfragments) {
         foreach ($htmlfragments as $f) {
-            $this->[fragmentsbasename($f, '.php')] = $this->dir_ . $f;
+            $this->fragments[basename($f, '.php')] = $this->dir_ . $f;
         }
     }
 
@@ -20,8 +20,8 @@ Class Template {
      **/
     public function render($vars) {
         extract($vars);
-        foreach ($this->fragments as $f) {
-
+        foreach ($this->fragments as $name => $f) {
+            include($f);
         }
     }
 }
