@@ -1,5 +1,34 @@
 <?php
 
+/**
+ * Wrapper around various database modifications, avoid repetition.
+ * Performs the specified action, checking for exceptions, and displays
+ * a message depending on the results.
+ **/
+function dbMod($cat, $action, $args=array()) {
+    try{
+        switch($action) {
+            case 'create':
+            case 'update':
+                $cat->initFromDb($args);
+                $cat->save();
+                $performed = $action == 'create' ? 'ajoutée' : 'modifiée';
+                break;
+            case 'delete':
+                $cat->delete();
+                $performed = 'supprimée';
+                break;
+            default:
+                die('Action invalide');
+        }   
+    } catch (PDOException $e) {
+        display_error('Erreur:</br>' . $e, true);
+    }
+    display_success('La catégorie ' . $cat->getLabel() . 
+                    'a bien été ' . $performed . '.' );
+    include('views/cat-edit.php');
+}
+
 // Get all categories
 $cats = array();
 foreach (Categorie::getAll() as $c) {
@@ -13,32 +42,23 @@ switch ($_SERVER['REQUEST_METHOD']) {
         // Form sent via the 'Sauvegarder' button
         if (isset($_POST['save'])) {
             // id == new => create
+            $args = array(
+                'cat_id'     => $_POST['id'],
+                'cat_label'  => $_POST['label'],
+                'cat_parent' => $_POST['parent']
+            );
             if ($_POST['id'] === 'new') {
                 $new_cat = new Categorie();
-                $new_cat->initFromDb(array(
-                    'cat_id'     => $_POST['id'],
-                    'cat_label'  => $_POST['label'],
-                    'cat_parent' => $_POST['parent']
-                ));
-                try {
-                    $new_cat->save();
-                } catch (PDOException $e) {
-                    display_error(
-                        'Impossible d\'ajouter cette catégorie:</br>' . $e,
-                        true
-                    );
-                }
-                display_success('La catégorie ' . $new_cat->getLabel() . 
-                                'a bien été ajoutée ;)');
+                dbMod($new_cat, 'create', $args);
             }
             // else update
             else {
-                display_success('owi!');
-                echo 'updating cat #' . $_POST['id'];
+                $cat = Categorie::getById($_POST['id']);
+                dbMod($cat, 'update', $args);
             }
         } else if (isset($_POST['delete'])) {
-            display_success('owi!');
-            echo 'deleting cat #' . $_POST['id'];
+            $cat = Categorie::getById($_POST['id']);
+            dbMod($cat, 'delete');
         }
         break;
     // Get request: display forms for each categorie
