@@ -5,7 +5,7 @@
            value='<?php echo isset($c) ? $c->getId() : 'new' ?>' />
     <label>Libellé: </label>
     <input type='text' name='label' 
-           placeholder='<?php echo isset($c) ? $c->getLabel() : "" ?>' />
+           value='<?php echo isset($c) ? $c->getLabel() : "" ?>' />
     <label>Catégorie parente: </label>
     <select name='parent'>
       <option value='none'>Aucune</option>
