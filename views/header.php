@@ -36,7 +36,7 @@
                 <ul class="nav">
                   <li class="active"><a href="/">Acceuil</a></li>
                   <li><a href="">Ajouter une fiche</a></li>
-                  <li><a href="models/categories.php">Editer les catégories</a></li>
+                  <li><a href="?action=edit&items=categories">Editer les catégories</a></li>
                 </ul>
           </nav>
 	      <!--/ Menu -->
