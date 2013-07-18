@@ -8,7 +8,6 @@ USE naoned_test
 --
 
 DELETE FROM categorie;
-TRUNCATE categorie;
 
 INSERT INTO `categorie` (`cat_id`, `cat_label`, `cat_parent`) VALUES(1, 'SomeCategory', NULL);
 INSERT INTO `categorie` (`cat_id`, `cat_label`, `cat_parent`) VALUES(2, 'SomeOtherCategory', NULL);

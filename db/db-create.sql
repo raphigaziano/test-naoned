@@ -2,23 +2,18 @@
 -- Script de création de la base nanoned_test.
 
 -- Création user & bdd --
--------------------------
-CREATE USER IF NOT EXISTS 'naoned_test'@'localhost';
 
-GRANT USAGE ON * . * TO  'naoned_test'@'localhost' 
-    WITH MAX_QUERIES_PER_HOUR 0 
-    MAX_CONNECTIONS_PER_HOUR 0 
-    MAX_UPDATES_PER_HOUR 0 
-    MAX_USER_CONNECTIONS 0 ;
+DROP TABLE IF EXISTS categorie_fiche;
+DROP TABLE IF EXISTS categorie;
+DROP TABLE IF EXISTS fiche;
 
 DROP DATABASE IF EXISTS naoned_test;
+
 CREATE DATABASE naoned_test COLLATE utf8_unicode_ci;
 USE naoned_test;
 
 -- Création tables --
----------------------
 
-DROP TABLE IF EXISTS categorie;
 CREATE TABLE categorie (
     cat_id      INT             NOT NULL    AUTO_INCREMENT  PRIMARY KEY,
     cat_label   VARCHAR(255)    NOT NULL,
@@ -29,7 +24,6 @@ CREATE TABLE categorie (
 ALTER TABLE categorie AUTO_INCREMENT = 1;
 
 
-DROP TABLE IF EXISTS fiche;
 CREATE TABLE fiche (
     fi_id      INT             NOT NULL    AUTO_INCREMENT  PRIMARY KEY,
     fi_label   varchar(255)    NOT NULL,
@@ -37,7 +31,7 @@ CREATE TABLE fiche (
 );
 ALTER TABLE fiche AUTO_INCREMENT = 1;
 
-DROP TABLE IF EXISTS categorie_fiche;
+
 CREATE TABLE categorie_fiche (
     cat_id     INT  NOT NULL,
     fi_id      INT  NOT NULL,
@@ -47,4 +41,24 @@ CREATE TABLE categorie_fiche (
         ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY (cat_id, fi_id)
 );
+
+-- Triggers --
+
+-- Supprime les fiches associées à une catégorie à la suppression de celle ci.
+-- TODO: recursif (ne supprime les post associés à une sous catégorie que sur un seul niveau)
+DROP TRIGGER IF EXISTS tr_del_fiches_on_cat_delete;
+delimiter $$
+CREATE TRIGGER tr_del_fiches_on_cat_delete
+    BEFORE DELETE ON categorie
+    FOR EACH ROW
+BEGIN
+    DECLARE cat_id INT;
+    SET cat_id = OLD.cat_id;
+
+    DELETE FROM fiche WHERE fi_id in (
+        SELECT fi_id FROM categorie_fiche
+        WHERE categorie_fiche.cat_id = cat_id
+    );
+END$$
+delimiter ;
 
