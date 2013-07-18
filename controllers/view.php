@@ -7,9 +7,16 @@ if (isset($_GET['post'])) {
     $f = Fiche::getById($_GET['post']);
     // TODO: move into view
 ?>
-    <h1> <?php echo $f->getLabel(); ?> </h1>
-    <td><?php echo $f->getDescription(); ?></td>
-    <td>Category</td>
+    <h1><?php echo $f->getLabel(); ?></h1>
+    <p><?php echo $f->getDescription(); ?></p>
+    <p>
+        Categories: 
+        <?php foreach ($f->getCategories() as $c): ?>
+            <a href="?cat=<?php echo $c->getId(); ?>">
+              <?php echo $c->getLabel(); ?>
+            </a>
+        <?php endforeach; ?>
+    </p>
 <?php } 
 // List fiches
 else {
@@ -28,6 +35,7 @@ else {
     if (isset($c)) {
         echo 'Catégorie: ' . $c->getLabel() . '<br/>';
     }
+    // TODO: move into view
     echo count($fiches) . ' Fiches sont affichées.';
     foreach ($fiches as $f) {
         ?>
