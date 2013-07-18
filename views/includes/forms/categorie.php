@@ -1,5 +1,5 @@
 <p>
-  <form class='form-inline', action='', method='post'>
+  <form class='form-inline categorie-edit', action='', method='post'>
   <fieldset>
     <input type='hidden' name='id' 
            value='<?php echo isset($c) ? $c->getId() : 'new' ?>' />
@@ -8,7 +8,7 @@
            placeholder='<?php echo isset($c) ? $c->getLabel() : "" ?>' />
     <label>Catégorie parente: </label>
     <select name='parent'>
-      <option value='None'>Aucune</option>
+      <option value='none'>Aucune</option>
       <?php foreach($cats as $j => $cat):?>
         <option value=<?php echo "'$j'"; 
                 echo (isset($c) AND $c->getParent() == $j) ? " selected" : ""; ?>>
