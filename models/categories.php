@@ -129,7 +129,10 @@ Class Categorie extends Model {
      * @return array of all categories
      **/
     public static function getAll() {
-        foreach ($this->_getAll() as $cat) {
+        $obj = new Categorie();
+        $query = $obj->queries['getAll'];
+        $query->execute();
+        foreach ($query->fetchAll() as $c) {
             $cat = new Categorie();
             $cat->initFromDb($c);
             $res[] = $cat;
