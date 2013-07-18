@@ -26,7 +26,6 @@ function dbMod($cat, $action, $args=array()) {
     }
     display_success('La catégorie ' . $cat->getLabel() . 
                     'a bien été ' . $performed . '.' );
-    include('views/cat-edit.php');
 }
 
 // Get all categories
