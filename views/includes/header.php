@@ -37,7 +37,7 @@
                 <ul class="nav">
                   <li class="active"><a href="/">Acceuil</a></li>
                   <li><a href="">Ajouter une fiche</a></li>
-                  <li><a href="?action=edit&items=categories">Editer les catégories</a></li>
+                  <li><a href="?action=edit&amp;which=categories">Editer les catégories</a></li>
                 </ul>
           </nav>
 	      <!--/ Menu -->
@@ -49,3 +49,5 @@
     <!--/ header -->
 <div class="container-fluid">
   <div class="row-fluid">
+    <?php categories_menu();?>
+      <div class="span8 offset1">

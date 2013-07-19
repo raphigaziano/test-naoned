@@ -1,5 +1,5 @@
-<p>
-  <form class='form-inline categorie-edit', action='', method='post'>
+  <form class='form-inline categorie-edit' 
+        action='/?action=edit&which=categories' method='post'>
   <fieldset>
     <input type='hidden' name='id' 
            value='<?php echo isset($c) ? $c->getId() : 'new' ?>' />
@@ -22,4 +22,3 @@
     <?php endif; ?>
   </fieldset>
   </form>
-</p>

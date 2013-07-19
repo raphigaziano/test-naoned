@@ -1,3 +1,6 @@
+    <?php if (isset($selected)) {
+            echo 'Catégorie: ' . $selected->getLabel() . '<br/>';
+    }?>
     <?php echo count($fiches) . ' Fiches sont affichées.'; ?>
     <?php foreach ($fiches as $f): ?>
         <p>
