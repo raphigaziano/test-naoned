@@ -10,4 +10,11 @@
     ?>
     <script type='text/javascript'
     src='<?php echo get_static_url('js/deletewarning.js'); ?>'> </script>
+    <script type='text/javascript'>
+        $('button[name="delete"]').click(function(ev) {
+            if (! warnOnDelete(this)) {
+                ev.preventDefault();
+            }
+        });
+    </script>
 <?php endif;?>
