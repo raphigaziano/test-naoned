@@ -94,6 +94,9 @@ Class Fiche extends Model {
             "INSERT INTO fiche (fi_label, fi_description)
              VALUES (:label, :descript);"
         );
+        $this->queries['delete'] = $this->_prepareRequest(
+            "DELETE FROM fiche WHERE fi_id = :id;"
+        );
     }
 
     /**
