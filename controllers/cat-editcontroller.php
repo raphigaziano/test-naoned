@@ -45,13 +45,11 @@ Class CategorieEditController extends BaseController {
         }
     }
     
-    // TODO DOC
-    protected function _postPost($msgs=array()) {
-        header('Cache-Control: private');
+    /* Redirect to the same page, setting an url variable 'done' to avoid
+     * reprocessing the POST data
+     **/
+    protected function _postPost() {
         header('Location: /?action=edit&which=categories&done');
-        $t = new MainTemplate();
-        $t->render(array('cats'  => $this->cats,
-						  'msgs'  => $msgs));		
 	}
 
     /**
@@ -60,7 +58,6 @@ Class CategorieEditController extends BaseController {
      * a message depending on the results.
      **/
     private function _dbMod($cat, $action, $args=array()) {
-        $msgs = array();
         try{
             switch($action) {
                 case 'create':
@@ -76,13 +73,13 @@ Class CategorieEditController extends BaseController {
                 default:
                     die('Action invalide');
             }   
+            MessageHandler::setSuccessMsg('La catégorie ' . $cat->getLabel() . 
+                                ' a bien été ' . $performed . '.');
         } catch (PDOException $e) {
-            $msgs['err'] = 'Erreur:</br>' . $e;
+            MessageHandler::setErrMsg('Erreur:</br>' . $e);
         }
-        $msgs['success'] = 'La catégorie ' . $cat->getLabel() . 
-							'a bien été ' . $performed . '.' ;
               
-        $this->_postPost($msgs);
+        $this->_postPost();
     }
 }
 

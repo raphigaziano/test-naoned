@@ -17,18 +17,29 @@ function _alert($type, $msg) {
 <?php }
 
 /**
+ * Internal helper.
+ **/
+function _display_msg($type, $msgname) {
+    $msg = MessageHandler::getMsg($msgname);
+    if ($msg) {
+        _alert($type, $msg);  
+    }
+
+}
+
+/**
  * Display a success message
  **/
-function display_success($msg) {
-    _alert('success', $msg);  
+function display_success() {
+    _display_msg('success', 'success');
 }
 
 /**
  * Display an error message.
  * If $die === true, then abort everyting.
  **/
-function display_error($msg, $die=false) {
-    _alert('error', $msg);  
+function display_error($die=false) {
+    _display_msg('error', 'error');
     if ($die) die();
 }
 

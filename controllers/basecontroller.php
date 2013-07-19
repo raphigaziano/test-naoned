@@ -12,7 +12,8 @@ Abstract Class BaseController {
     protected function doPost() {
         // !!!UGLY HACK!!!
 		// Must redispatch here... 
-		$c = NULL;
+        MessageHandler::clear(); // Clear messages here - assuming this will
+                                 // only be needed on POST requests
         switch ($_REQUEST['which']) {
 			case 'categories':
 				include_once('controllers/cat-editcontroller.php');
