@@ -16,9 +16,11 @@
         <button class='crudbtn btn btn-danger' name='delete'>
             Supprimer
         </button>
-    <form>
+    </form>
+    <div id='edit-form'> 
+        <?php include('forms/fiche.php'); ?>
+    </div>
     <script type='text/javascript'
             src='<?php echo get_static_url('js/deletewarning.js'); ?>'></script>
     <script type='text/javascript'
             src='<?php echo get_static_url('js/editinplace.js'); ?>'></script>
-
