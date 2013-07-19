@@ -43,8 +43,15 @@ function ajaxcall(url, itemdata) {
     // Update
     $('button[name="update"]').click(function(ev) {
         ev.preventDefault();
+        var that = $(this);
         $('article').toggle(100);
-        $('#edit-form').toggle(100);
+        $('#edit-form').toggle(100, function() {
+            if ($(this).css('display') !== 'none') {
+                $(that).text('Retour');
+            } else {
+                $(that).text('Modifier');
+            }
+        });
         // var data = $('#edit-form').serialize();
         // console.log(data);
     });
