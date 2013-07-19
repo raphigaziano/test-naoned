@@ -4,6 +4,8 @@ include('fiche-editcontroller.php');
 
 Class EditController extends BaseController {
 
+    protected $modelClass;
+
     public function __construct() {
         $this->subcontrollers = array(
             'categories'    => new CategorieEditController(),
@@ -11,18 +13,84 @@ Class EditController extends BaseController {
         );
     }
         
+    protected function dispatchAction($args) {
+        $cls = $this->modelClass;
+        // Saving => ?
+        if (isset($_POST['save'])) {
+            // id == new => create
+            if ($_POST['id'] === 'new') {
+                $new_item = new $cls();
+                $this->_dbMod($new_item, 'create', $args);
+            }
+            // else update
+            else {
+                $item = Categorie::getById($_POST['id']);
+                $this->_dbMod($item, 'update', $args);
+            }
+        // Deleting
+        } else if (isset($_POST['delete'])) {
+            $item = $cls::getById($_POST['id']);
+            $this->_dbMod($item, 'delete');
+        }
+    }
+    
     /**
-     * Overriding default behaviour:
+     * Wrapper around various database modifications, avoid repetition.
+     * Performs the specified action, checking for exceptions, and displays
+     * a message depending on the results.
+     **/
+    protected function _dbMod($item, $action, $args=array()) {
+        try{
+            switch($action) {
+                case 'create':
+                case 'update':
+                    $item->initFromDb($args);
+                    $item->save();
+                    $performed = $action == 'create' ? 'ajoutée' : 'modifiée';
+                    break;
+                case 'delete':
+                    $item->delete();
+                    $performed = 'supprimée';
+                    break;
+                default:
+                    die('Action invalide');
+            }   
+            MessageHandler::setSuccessMsg(
+                // TODO: clean this up!
+                'La ' . strtolower($this->modelClass) . ' ' 
+                . $item->getLabel() .  ' a bien été ' . $performed . '.');
+        } catch (PDOException $e) {
+            MessageHandler::setErrMsg('Erreur:</br>' . $e);
+        }
+    }
+
+    /**
      * dispatch according to $_GET['which'] rather than request method
-     */
-    public function dispatch() {
+     **/
+    private function _dispatch() {
 
         if (!isset($_REQUEST['which'])) {
             die('URL invalide: pas de paramètre "which"');
         }
 
-        $c = $this->subcontrollers[$_GET['which']];
-        $c->dispatch();
+        if ($this->subcontrollers) {
+            $c = $this->subcontrollers[$_GET['which']];
+            $c->dispatch();
+            return $c;
+        } else {
+            return NULL;
+        }
+    }
+    /**
+     * Try overriden dispatch behaviour (_dispatch), falling back to the 
+     * default one if we're a "leaf controller"
+     */
+    public function dispatch() {
+
+        $c = $this->_dispatch();
+        if (!$c) {
+            parent::dispatch();
+        }
     }
 }
 
