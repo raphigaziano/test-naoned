@@ -1,13 +1,14 @@
-  <form class='form-inline categorie-edit' 
-        action='/?action=edit&which=categories' method='post'>
+  <form class='form-inline fiche-edit' 
+        action='/?action=edit&which=fiches&fiche= <?php echo $f->getId();?>' 
+        method='post'>
   <fieldset>
     <input type='hidden' name='id' 
            value='<?php echo isset($c) ? $c->getId() : 'new' ?>' />
     <label for='label'>Libellé: </label>
     <input type='text' name='label' 
-           value='<?php echo isset($c) ? $c->getLabel() : "" ?>' />
-    <label>Catégorie parente: </label>
-    <select name='parent'>
+           value='<?php echo isset($f) ? $f->getLabel() : "" ?>' />
+    <label>Catégorie: </label>
+    <select name='cat'>
       <option value='none'>Aucune</option>
       <?php foreach($cats as $j => $cat):?>
         <option value=<?php echo "'$j'"; 
@@ -17,8 +18,9 @@
       <?php endforeach;?>
     </select>
     <button name='save' class='btn btn-primary'>Sauvegarder</button>
-    <?php if (isset($c)):?>
-        <button name='delete' class='btn btn-danger'>Supprimer</button>
-    <?php endif; ?>
+    <textarea name='description' rows='20' cols='80'>
+        <?php echo isset($f) ? $f->getDescription() : ''; ?>
+    </textarea>
   </fieldset>
   </form>
+
