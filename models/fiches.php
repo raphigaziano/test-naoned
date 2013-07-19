@@ -65,6 +65,10 @@ Class Fiche extends Model {
              SET fi_label=:label, fi_description=:descript
              WHERE fi_id = :id;"
         );
+        $this->queries['insert'] = $this->_prepareRequest(
+            "INSERT INTO fiche (fi_label, fi_description)
+             VALUES (:label, :descript);"
+        );
     }
 
     /**
