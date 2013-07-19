@@ -35,6 +35,8 @@ Class FicheEditController extends EditController {
         );
         $this->dispatchAction($args);
     }
-}
 
-?>
+    public function _postPost() {
+        header('Location: /');
+    }
+}
