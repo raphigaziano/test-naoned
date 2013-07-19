@@ -63,6 +63,8 @@ abstract Class Model {
      * Will either insert a new row or update an existing one, depending on
      * the value of $this-> id ('new' => new row)
      *
+     * Subclasses will need to supply the $arg parameter.
+     *
      * return void
      **/
     protected function _save($args) {
