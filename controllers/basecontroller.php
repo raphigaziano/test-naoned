@@ -12,8 +12,6 @@ Abstract Class BaseController {
     protected function doPost() {
         // !!!UGLY HACK!!!
 		// Must redispatch here... 
-        MessageHandler::clear(); // Clear messages here - assuming this will
-                                 // only be needed on POST requests
         switch ($_REQUEST['which']) {
 			case 'categories':
 				include_once('controllers/cat-editcontroller.php');
@@ -33,6 +31,7 @@ Abstract Class BaseController {
      * First request filter: decides whether o call POST or GET handler.
      */
     public function dispatch() {
+        //MessageHandler::grab();
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'POST':
                 $this->doPost();

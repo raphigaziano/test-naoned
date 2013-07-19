@@ -13,10 +13,15 @@ Class MessageHandler {
     
     static private $msgs = array();
 
+    /*
+     * Grab messages from the session,
+     * and clear the session data.
+     **/
     public static function __init() {
         session_start();
         if (isset($_SESSION['msgs'])) {
             self::$msgs = $_SESSION['msgs'];
+            $_SESSION['msgs'] = array();
         }
     }
 
@@ -50,13 +55,6 @@ Class MessageHandler {
     
     }
 
-    /**
-     * Clear the internal messages array
-     **/
-    static public function clear() {
-        self::$msgs = array();
-        $_SESSION['msgs'] = self::$msgs;
-    }
 
     // Debug - var_dump $msgs
     static public function dump() {
