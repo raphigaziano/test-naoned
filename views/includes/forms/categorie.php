@@ -1,4 +1,4 @@
-  <form class='form-inline categorie-edit' 
+  <form class='form-inline item-edit' 
         action='/?action=edit&which=categories' method='post'>
   <fieldset>
     <input type='hidden' name='id' 
