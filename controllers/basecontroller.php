@@ -17,7 +17,7 @@ Abstract Class BaseController {
      * reprocessing the POST data
      **/
     protected function _postPost() {
-        header('Location: /?action=edit&which=categories&done');
+        header('Location: ' . $_SERVER['REQUEST_URI'] . '&done');
 	}
 
     /**
