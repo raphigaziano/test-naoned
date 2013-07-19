@@ -1,13 +1,35 @@
-<?php
+﻿<?php
+include('views/template.php');
 
 Abstract Class BaseController {
 
-    abstract public function doGet();
+	private $subcontrollers;
 
-    abstract public function doPost();
+    protected function doGet() {
+        // NO-OP
+    }
+
+    protected function doPost() {
+        // !!!UGLY HACK!!!
+		// Must redispatch here... 
+		$c = NULL;
+        switch ($_REQUEST['which']) {
+			case 'categories':
+				include_once('controllers/cat-editcontroller.php');
+				$c = new CategorieEditController();
+				break;
+			case 'fiches':
+				include_once('controllers/fiche-editcontroller.php');
+				$c = new FicheEditController();
+				break;			
+			default:
+				die('popo');
+		}
+			$c->doPost();
+    }
 
     /**
-     * First request filter: decides whether to call POST or GET handler.
+     * First request filter: decides whether o call POST or GET handler.
      */
     public function dispatch() {
         switch ($_SERVER['REQUEST_METHOD']) {
