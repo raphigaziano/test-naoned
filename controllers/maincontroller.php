@@ -21,6 +21,24 @@ Class MainController extends BaseController {
         $c = $this->subcontrollers[$action];
         $c->dispatch();
     }
+
+    public function doPost() {
+        // !!!UGLY HACK!!!
+		// Must redispatch here... 
+        switch ($_REQUEST['which']) {
+			case 'categories':
+				include_once('controllers/cat-editcontroller.php');
+				$c = new CategorieEditController();
+				break;
+			case 'fiches':
+				include_once('controllers/fiche-editcontroller.php');
+				$c = new FicheEditController();
+				break;			
+			default:
+				die('popo');
+		}
+			$c->doPost();
+    }
 }
 
 ?>
