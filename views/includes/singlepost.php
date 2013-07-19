@@ -18,7 +18,12 @@
         </button>
     </form>
     <div id='edit-form'> 
-        <?php include('forms/fiche.php'); ?>
+        <?php 
+        $cats = Categorie::getAll();
+        $t = new Template(array('forms/fiche'));
+        $t->render(array('f'    => $f,
+                         'cats' => $cats));
+        ?>
     </div>
     <script type='text/javascript'
             src='<?php echo get_static_url('js/deletewarning.js'); ?>'></script>
