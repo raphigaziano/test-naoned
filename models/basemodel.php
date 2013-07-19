@@ -65,6 +65,29 @@ abstract Class Model {
     }
 
     /**
+     * Save the object to the database.
+     * Will either insert a new row or update an existing one, depending on
+     * the value of $this-> id ('new' => new row)
+     *
+     * return void
+     **/
+    protected function _save($args) {
+        if ($this->id === 'new') {
+            $this->_execQuery('insert', $args);
+        } else {
+            $args[':id'] = $this->id;
+            $this->_execQuery('update', $args);
+        }
+    }
+
+    /**
+     * Delete the categorie from the database.
+     **/
+    public function delete() {
+        $this->_execQuery('delete', array(':id' => $this->id));
+    }
+
+    /**
      * Helper. Excecute passed query and return all results.
      **/
     protected function _getAll($query='getAll', $args=array()) {

@@ -6,7 +6,7 @@ include_once('basemodel.php');
  **/
 Class Categorie extends Model {
 
-    private $id, $label, $parent;
+    protected $id, $label, $parent;
     
     /* Accessors 
      * *********
@@ -123,31 +123,16 @@ Class Categorie extends Model {
     }
 
     /**
-     * Save the object to the database.
-     * Will either insert a new row or update an existing one, depending on
-     * the value of $this-> id ('new' => new row)
-     *
-     * return void
+     * Init arguments for save function.
      **/
     public function save() {
         $args = array(
             ':label'  => $this->label,
             ':parent' => $this->parent
         );
-        if ($this->id === 'new') {
-            $this->_execQuery('insert', $args);
-        } else {
-            $args[':id'] = $this->id;
-            $this->_execQuery('update', $args);
-        }
+        $this->_save($args);
     }
 
-    /**
-     * Delete the categorie from the database.
-     **/
-    public function delete() {
-        $this->_execQuery('delete', array(':id' => $this->id));
-    }
 
     /**
      * Alternate, static constructor.
@@ -178,6 +163,7 @@ Class Categorie extends Model {
         $obj = new Categorie();
         $query = $obj->queries['getAll'];
         $query->execute();
+        $res = array();
         foreach ($query->fetchAll() as $c) {
             $cat = new Categorie();
             $cat->initFromDb($c);
