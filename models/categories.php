@@ -80,7 +80,7 @@ Class Categorie extends Model {
             "SELECT * FROM categorie WHERE cat_parent = :id;"
         );
         $this->queries['getFiches'] = $this->_prepareRequest(
-            'SELECT fiche.* FROM fiche
+            'SELECT fiche.* , cat_id FROM fiche
                 INNER JOIN categorie_fiche ON fiche.fi_id = categorie_fiche.fi_id
             WHERE cat_id = :id OR cat_id in (
                 SELECT cat_id FROM categorie WHERE cat_parent = :id
