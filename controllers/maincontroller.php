@@ -38,6 +38,7 @@ Class MainController extends BaseController {
 				die('popo');
 		}
 			$c->doPost();
+            $c->_postPost();
     }
 }
 

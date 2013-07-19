@@ -45,13 +45,6 @@ Class CategorieEditController extends BaseController {
         }
     }
     
-    /* Redirect to the same page, setting an url variable 'done' to avoid
-     * reprocessing the POST data
-     **/
-    protected function _postPost() {
-        header('Location: /?action=edit&which=categories&done');
-	}
-
     /**
      * Wrapper around various database modifications, avoid repetition.
      * Performs the specified action, checking for exceptions, and displays
@@ -78,8 +71,6 @@ Class CategorieEditController extends BaseController {
         } catch (PDOException $e) {
             MessageHandler::setErrMsg('Erreur:</br>' . $e);
         }
-              
-        $this->_postPost();
     }
 }
 
