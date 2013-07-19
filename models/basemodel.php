@@ -58,12 +58,6 @@ abstract Class Model {
         return $q;
     }
 
-    protected function _insertOrUpdate($query, $args=array()) {
-        $q = $this->queries[$query];
-        $q->exec($args);
-        return $q;
-    }
-
     /**
      * Save the object to the database.
      * Will either insert a new row or update an existing one, depending on
