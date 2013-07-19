@@ -27,8 +27,8 @@
             <div class="nav-collapse collapse">
 	      <!-- Menu -->
 	      <nav>
-                <ul class="nav">
-                  <li class="active"><a href="/">Acceuil</a></li>
+                <ul id='topnav' class="nav">
+                  <li><a href="/">Acceuil</a></li>
                   <li><a href="?action=edit&amp;which=fiches">Ajouter une fiche</a></li>
                   <li><a href="?action=edit&amp;which=categories">Editer les catégories</a></li>
                 </ul>
