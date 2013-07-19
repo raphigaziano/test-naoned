@@ -6,31 +6,11 @@ include_once('basemodel.php');
  **/
 Class Categorie extends Model {
 
-    protected $id, $label, $parent;
+/bin/bash: 7:q: command not found
     
     /* Accessors 
      * *********
      */
-
-    public function getId() {
-        return $this->id;
-    }
-    public function setId($val) {
-        if ($val != 'new') {
-            $val = (int)$val;
-        }
-        $this->id = $val;
-    }
-
-    public function getLabel() {
-        return $this->label;
-    }
-    public function setLabel($val) {
-        if (!$val) {
-            $val = NULL;
-        }
-        $this->label = $val;
-    }
 
     public function getParent() {
         return $this->parent;

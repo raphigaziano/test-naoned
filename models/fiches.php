@@ -6,25 +6,11 @@ include_once('basemodel.php');
  **/
 Class Fiche extends Model {
 
-    private $id, $label, $description;
+    protected $description;
     
     /* Accessors 
      * *********
      */
-
-    public function getId() {
-        return $this->id;
-    }
-    public function setId($val) {
-        $this->id = (int)$val;
-    }
-
-    public function getLabel() {
-        return $this->label;
-    }
-    public function setLabel($val) {
-        $this->label = $val;
-    }
 
     public function getDescription() {
         return $this->description;
@@ -74,6 +60,23 @@ Class Fiche extends Model {
                 INNER JOIN fiche ON fiche.fi_id = categorie_fiche.fi_id
             WHERE fiche.fi_id = :id;"
         );
+        $this->queries['update'] = $this->_prepareRequest(
+            "UPDATE fiche 
+             SET fi_label=:label, fi_description=:descript
+             WHERE fi_id = :id;"
+        );
+    }
+
+    /**
+     * Init args for saving, and insert or update the fiche in the
+     * categorie_fiche relation table.
+     */
+    public function save() {
+        $args = array(
+            ':label'    => $this->label,
+            ':descript' => $this->description
+        );
+        $this->_save($args);
     }
 
     /**

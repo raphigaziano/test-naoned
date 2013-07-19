@@ -8,6 +8,8 @@ abstract Class Model {
 
     protected static $db;
     protected $queries = array();
+    // Common attributes
+    protected $id, $label;
 
     /**
      * Instance constructor.
@@ -16,6 +18,25 @@ abstract Class Model {
         $this->_initQueries();
     }
 
+    public function getId() {
+        return $this->id;
+    }
+    public function setId($val) {
+        if ($val != 'new') {
+            $val = (int)$val;
+        }
+        $this->id = $val;
+    }
+
+    public function getLabel() {
+        return $this->label;
+    }
+    public function setLabel($val) {
+        if (!$val) {
+            $val = NULL;
+        }
+        $this->label = $val;
+    }
     /**
      * Database Initialisation.
      *
