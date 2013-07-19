@@ -5,8 +5,6 @@ include_once('basemodel.php');
  * Model class for Category objects
  **/
 Class Categorie extends Model {
-
-/bin/bash: 7:q: command not found
     
     /* Accessors 
      * *********
