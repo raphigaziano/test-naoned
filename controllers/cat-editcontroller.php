@@ -18,9 +18,6 @@ Class CategorieEditController extends BaseController {
     }
 
     protected function doPost() {
-        if (isset($_REQUEST['done'])) {
-            die();
-        }
         // Saving => ?
         if (isset($_POST['save'])) {
             $args = array(

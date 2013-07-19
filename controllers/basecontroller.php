@@ -27,6 +27,9 @@ Abstract Class BaseController {
         //MessageHandler::grab();
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'POST':
+                if (isset($_REQUEST['done'])) {
+                    die();
+                }
                 $this->doPost();
                 break;
             case 'GET':
