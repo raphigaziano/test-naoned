@@ -8,5 +8,6 @@
         include('views/includes/forms/categorie.php');
     }
     ?>
-    <script src='static/js/deletewarning.js'> </script>
+    <script type='text/javascript'
+    src='<?php echo get_static_url('js/deletewarning.js'); ?>'> </script>
 <?php endif;?>
