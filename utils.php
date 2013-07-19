@@ -64,4 +64,13 @@ Class MessageHandler {
 
 MessageHandler::__init();
 
+/**
+ * Pretty printer for debugging
+ */
+function debug($data) {
+    echo '<pre>';
+    var_dump($data);
+    echo '</pre>';
+}
+
 ?>
