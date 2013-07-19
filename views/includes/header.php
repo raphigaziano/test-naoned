@@ -5,17 +5,10 @@
         <title>Test Naoned - Annuaire Musées</title>
         <link rel='stylesheet' type='text/css'
               href='<?php get_static_url('bootstrap/css/bootstrap.min.css'); ?>' />
+        <link rel='stylesheet' type='text/css'
+              href='<?php get_static_url('bootstrap/css/bootstrap-responsive.min.css'); ?>' />
  	    <link rel='stylesheet' type='text/css'
-	          href='<?php get_static_url('bootstrap-responsive.min.css'); ?>' />
-        <style>
-            body {
-                padding-top: 60px;
-                padding-bottom: 40px;
-            }
-            .sidebar-nav {
-                padding: 9px 0;
-            }
-        </style>
+	          href='<?php get_static_url('css/base.css'); ?>' />
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     </head>
 
@@ -36,7 +29,7 @@
 	      <nav>
                 <ul class="nav">
                   <li class="active"><a href="/">Acceuil</a></li>
-                  <li><a href="">Ajouter une fiche</a></li>
+                  <li><a href="?action=edit&amp;which=fiches">Ajouter une fiche</a></li>
                   <li><a href="?action=edit&amp;which=categories">Editer les catégories</a></li>
                 </ul>
           </nav>
