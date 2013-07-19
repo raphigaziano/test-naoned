@@ -3,6 +3,8 @@
 Class FicheEditController extends EditController {
 
     private $fiche;
+    // Load all categories
+    private $cats = array();
 
     public function __construct() {
         $this->modelClass = 'Fiche';
@@ -11,14 +13,16 @@ Class FicheEditController extends EditController {
         } else {
             $this->fiche = new Fiche();
         }
+        foreach (Categorie::getAll() as $c) {
+            $this->cats[$c->getId()] = $c;
+        }
     }
 
     public function doGet() {
         // simply display the form.
-        $cats = Categorie::getAll();
         $t = new MainTemplate(array('forms/fiche'));
         $t->render(array('f'    => $this->fiche,
-                         'cats' => $cats));
+                         'cats' => $this->cats));
     }
 
     public function doPost() {
