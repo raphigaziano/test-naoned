@@ -18,3 +18,17 @@ body {
 .fiche-edit button[name="save"] {
     margin-left: 23%;       /* Cross devices ??? */
 }
+
+/** Menu **/
+
+.sidebar-nav {
+    height: 100%;
+}
+
+/** fiche list **/
+
+/* TODO */
+
+footer {
+    height: 50px;
+}
