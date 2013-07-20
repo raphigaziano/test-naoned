@@ -5,10 +5,13 @@ Class ViewController extends BaseController {
     protected function doGet() {
 		if (isset($_GET['post'])) {
 			$f = Fiche::getById($_GET['post']);
-            $c = Categorie::getAll();
+            $cats = array();
+            foreach (Categorie::getAll() as $c) {
+                $cats[$c->getId()] = $c;
+            }
 			$t = new MainTemplate(array('singlepost'));
             $t->render(array('f'    => $f,
-                             'cats' => $c));
+                             'cats' => $cats));
 		} 
 		// List fiches
 		else {

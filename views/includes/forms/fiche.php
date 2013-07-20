@@ -10,11 +10,10 @@
     <label>Catégorie: </label>
     <select name='cat'>
       <option value='none'>Aucune</option>
+      <?php $c = $f->getCategorie(); $c = $c[0];?>
       <?php foreach($cats as $j => $cat):?>
-        <?php $c = $f->getCategorie(); ?>
-        <?php $c = $c ? $c[0] : $c; ?>
         <option value=<?php echo "'$j'"; 
-                echo $c AND $c->getId() === $j ? " selected" : ""; ?>>
+                echo ($c AND $c->getId() === $j) ? " selected" : ""; ?>>
           <?php echo $cat->getLabel();?>
         </option>
       <?php endforeach;?>
