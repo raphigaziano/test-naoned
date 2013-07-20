@@ -3,7 +3,7 @@
         method='post'>
   <fieldset>
     <input type='hidden' name='id' 
-           value='<?php echo isset($c) ? $c->getId() : 'new' ?>' />
+           value='<?php echo isset($f) ? $f->getId() : 'new' ?>' />
     <label for='label'>Libellé: </label>
     <input type='text' name='label' 
            value='<?php echo isset($f) ? $f->getLabel() : "" ?>' />
