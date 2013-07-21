@@ -5,7 +5,7 @@
     <?php foreach ($fiches as $f): ?>
         <p>
             <h4>
-              <a href="?action=view&post=<?php echo $f->getId();?>">
+              <a href="?action=view&fiche=<?php echo $f->getId();?>">
                 <?php echo $f->getLabel(); ?>
               </a>
             </h4>

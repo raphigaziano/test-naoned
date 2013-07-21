@@ -24,7 +24,7 @@ Class EditController extends BaseController {
             }
             // else update
             else {
-                $item = Categorie::getById($_POST['id']);
+                $item = $cls::getById($_POST['id']);
                 $this->_dbMod($item, 'update', $args);
             }
         // Deleting

@@ -8,11 +8,6 @@ Class FicheEditController extends EditController {
 
     public function __construct() {
         $this->modelClass = 'Fiche';
-        if (isset($_REQUEST['fiche'])) {
-            $this->fiche = Fiche::getById($_REQUEST['fiche']);
-        } else {
-            $this->fiche = new Fiche();
-        }
         foreach (Categorie::getAll() as $c) {
             $this->cats[$c->getId()] = $c;
         }
@@ -20,9 +15,14 @@ Class FicheEditController extends EditController {
 
     public function doGet() {
         // simply display the form.
+        if (isset($_REQUEST['fiche'])) {
+            $fiche = Fiche::getById($_REQUEST['fiche']);
+        } else {
+            $fiche = new Fiche();
+        }
         $t = new MainTemplate(array('forms/fiche'));
-        $t->render(array('f'    => $this->fiche,
-                         'cats' => $this->cats));
+        $t->render(array('f'        => $fiche,
+                         'formcats' => $this->cats));
     }
 
     public function doPost() {

@@ -82,7 +82,7 @@ Class Fiche extends Model {
         );
         $this->queries['updaterelation'] = $this->_prepareRequest(
             "UPDATE categorie_fiche
-             SET fi_id = :id
+             SET cat_id=:cat_id
              WHERE fi_id = :id;"
         );
         $this->queries['update'] = $this->_prepareRequest(
@@ -115,15 +115,18 @@ Class Fiche extends Model {
         );
         $this->_save($args);
         // Update join
-        $this_id = self::$db->lastInsertId();
         if ($this->id === 'new') {
+            $this_id = self::$db->lastInsertId();
             $this->_execQuery('addrelation',
                 array(':cat_id' => $cat_id,
                       ':id'     => $this_id)
             );
         }
         else {
-            // TODO: update
+            $this->_execQuery('updaterelation',
+                array(':cat_id' => $cat_id,
+                      ':id'     => $this->id)
+            );
         }
     }
 

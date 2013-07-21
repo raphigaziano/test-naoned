@@ -3,8 +3,8 @@
 Class ViewController extends BaseController {
 	
     protected function doGet() {
-		if (isset($_GET['post'])) {
-			$f = Fiche::getById($_GET['post']);
+		if (isset($_GET['fiche'])) {
+			$f = Fiche::getById($_GET['fiche']);
             $cats = array();
             foreach (Categorie::getAll() as $c) {
                 $cats[$c->getId()] = $c;

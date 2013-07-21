@@ -19,10 +19,13 @@
     </form>
     <div id='edit-form'> 
         <?php 
-        $cats = Categorie::getAll();
+        $formcats = array();
+        foreach (Categorie::getAll() as $c) {
+            $formcats[$c->getId()] = $c;
+        }
         $t = new Template(array('forms/fiche'));
         $t->render(array('f'    => $f,
-                         'cats' => $cats));
+                         'formcats' => $formcats));
         ?>
     </div>
     <script type='text/javascript'

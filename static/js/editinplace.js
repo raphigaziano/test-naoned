@@ -35,7 +35,7 @@ function ajaxcall(url, itemdata) {
         if (! warnOnDelete(this) ) {
             return false;
         }
-        var r = ajaxcall(
+        ajaxcall(
             '/?action=edit&which=fiches&fiche=' + itemdata.id, 
             itemdata
         );
@@ -52,7 +52,5 @@ function ajaxcall(url, itemdata) {
                 $(that).text('Modifier');
             }
         });
-        // var data = $('#edit-form').serialize();
-        // console.log(data);
     });
 })();
