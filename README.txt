@@ -15,6 +15,12 @@ je ne me suis souvenu de cet aspect de la demande que trop tard pour
 l'implementer dans l'application). Les fonctions d'édition d'une fiche semblent
 ok, ayant été développées en urgence afin de pouvoir être livrées à temps, 
 elle peuvent toutefois s'avérer instables.
+Concernant les categories, si celles ci s'affichent recursivement, et peuvent 
+donc s'imbriquer sur un nombre théoriquement infini de niveau, le listing ou 
+la suppression des fiches qui leurs sont associées ne se fait pour l'instant 
+que sur un seul niveau (les fiches contenues par la catégorie elle même seront
+affichées/supprimées, ansi que celles contenues par une sous catégories, mais 
+pas celles situées dans un troisième niveau d'imbrication ou au dela).
 
 Un bref retours sur ce mini projet me semble intéressant:
 
