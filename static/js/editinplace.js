@@ -1,4 +1,4 @@
-// Ajax call => delete
+// Ajax call shortcut
 function ajaxcall(url, itemdata) {
     $.ajax({
         type: "POST",
@@ -18,6 +18,11 @@ function ajaxcall(url, itemdata) {
     });
 }
 
+/**
+ * Client side logic for Fiche page =>
+ *  - Ajax call to delete a Fiche &
+ *  - Form displaying/hiding for modification.
+ **/
 (function() {
     // Collect item data on page load
     var itemdata = {

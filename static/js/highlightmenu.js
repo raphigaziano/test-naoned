@@ -1,3 +1,8 @@
+/**
+ * Script run on all pages load.
+ * Simply highlights the right button in the top
+ * navigation bar.
+ **/
 (function() {
     var navbar  = $('#topnav'),
         cur_url = location.search,
