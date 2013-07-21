@@ -32,11 +32,12 @@ Class Template {
     }
 }
 
+// Preset templates used throughout this app
 Class MainTemplate extends Template {
 	
 	public function __construct($htmlfragments=array()) {
 		$this->_addTemplate('header');
-        $this->_addTemplate('messages');
+        $this->_addTemplate('messages');:
 		parent::__construct($htmlfragments);
 		$this->_addTemplate('footer');
 	}
