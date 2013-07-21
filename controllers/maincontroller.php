@@ -3,6 +3,11 @@ include('controllers/basecontroller.php');
 include('controllers/viewcontroller.php');
 include('controllers/editcontroller.php');
 
+/**
+ * Top level controller -
+ * All request will pass through this one, before being handed to more
+ * specialized subcontrollers.
+ **/
 Class MainController extends BaseController {
     
 	public function __construct() {

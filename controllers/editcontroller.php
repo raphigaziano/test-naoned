@@ -2,8 +2,13 @@
 include('cat-editcontroller.php');
 include('fiche-editcontroller.php');
 
+/**
+ * Base class for editing controllers, defining some common methods
+ * & helpers.
+ **/
 Class EditController extends BaseController {
 
+    // Which model class does this controller handle ?
     protected $modelClass;
 
     public function __construct() {
@@ -13,6 +18,12 @@ Class EditController extends BaseController {
         );
     }
         
+    /**
+     * Decides which db action (create, update, delete) to perform
+     * depending on the received POST data.
+     *
+     * @param $args: parameters to pass to the actual db request.
+     **/
     protected function dispatchAction($args) {
         $cls = $this->modelClass;
         // Saving => ?
@@ -36,7 +47,7 @@ Class EditController extends BaseController {
     
     /**
      * Wrapper around various database modifications, avoid repetition.
-     * Performs the specified action, checking for exceptions, and displays
+     * Performs the specified action, checking for exceptions, and registers
      * a message depending on the results.
      **/
     protected function _dbMod($item, $action, $args=array()) {
@@ -55,10 +66,14 @@ Class EditController extends BaseController {
                 default:
                     die('Action invalide');
             }   
-            MessageHandler::setSuccessMsg(
-                // TODO: clean this up!
-                'La ' . strtolower($this->modelClass) . ' ' 
-                . $item->getLabel() .  ' a bien été ' . $performed . '.');
+            $base_msg = 'La <MODEL> <LABEL> a bien été <ACTION>."';
+            $msg = preg_replace(array('/<MODEL>/', '/<LABEL>/', '/<ACTION>/'),
+                                array(
+                                    '<MODEL>'  => strtolower($this->modelClass),
+                                    '<LABEL>'  => $item->getLabel(),
+                                    '<ACTION>' => $performed),
+                                $base_msg);
+            MessageHandler::setSuccessMsg( $msg);
         } catch (PDOException $e) {
             MessageHandler::setErrMsg('Erreur:</br>' . $e);
         }

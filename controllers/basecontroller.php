@@ -1,16 +1,20 @@
 ﻿<?php
 include('views/template.php');
 
+/**
+ * Base controller class.
+ * Implements default dispatch methods.
+ **/
 Abstract Class BaseController {
 
 	protected $subcontrollers;
 
     protected function doGet() {
-        // NO-OP
+        // NO-OP, to be overriden by subclasses if necessary.
     }
 
     protected function doPost() {
-        // NO-OP
+        // NO-OP, to be overriden by subclasses if necessary.
     }
 
     /* Redirect to the same page, setting an url variable 'done' to avoid
@@ -29,7 +33,6 @@ Abstract Class BaseController {
                 if (isset($_REQUEST['done'])) {
                     die();
                 }
-
                 $this->doPost();
                 break;
             case 'GET':

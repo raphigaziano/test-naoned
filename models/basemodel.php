@@ -11,13 +11,12 @@ abstract Class Model {
     // Common attributes
     protected $id, $label;
 
-    /**
-     * Instance constructor.
-     **/
     public function __construct() {
         $this->_initQueries();
     }
 
+    // Accessors methods 
+    
     public function getId() {
         return $this->id;
     }
@@ -37,8 +36,9 @@ abstract Class Model {
         }
         $this->label = $val;
     }
+
     /**
-     * Database Initialisation.
+     * Database Initialization.
      *
      * @return void
      **/

@@ -6,9 +6,7 @@ include_once('basemodel.php');
  **/
 Class Categorie extends Model {
     
-    /* Accessors 
-     * *********
-     */
+    // Accessors methods 
 
     public function getParent() {
         return $this->parent;

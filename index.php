@@ -1,4 +1,9 @@
 <?php 
+/**
+ * Site entry point.
+ * Instanciate the main controller and start dispatching.
+ */
+
 include_once('constants.php'); 
 include_once('utils.php');
 

@@ -8,10 +8,8 @@ Class Fiche extends Model {
 
     protected $description, $category;
     
-    /* Accessors 
-     * *********
-     */
-
+    // Accessors methods 
+    
     public function getDescription() {
         return $this->description;
     }
@@ -151,7 +149,7 @@ Class Fiche extends Model {
     }
 
     /**
-     * Return all categories
+     * Return all fiches.
      *
      * @return array of all fiches
      **/

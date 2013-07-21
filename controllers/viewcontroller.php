@@ -1,5 +1,9 @@
 ﻿<?php 
 
+/** 
+ * Controller for simple "display" views, ie not involving 
+ * data modifications.
+ **/
 Class ViewController extends BaseController {
 	
     protected function doGet() {
